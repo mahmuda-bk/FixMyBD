@@ -1,0 +1,78 @@
+/* FixMyBD — visual effects layer (cursor glow + auth entrance).
+   Purely decorative. Remove this file + js/fx.js + their tags in index.html to undo. */
+
+/* profile avatar: keep the uploaded photo clipped to the circle */
+.profile-avatar{overflow:hidden}
+
+/* ---------- 1. Cursor glow ---------- */
+#fx-cursor,#fx-cursor-core{position:fixed;left:0;top:0;pointer-events:none;z-index:99998;opacity:0;transition:opacity .35s ease;will-change:transform}
+#fx-cursor{width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;
+  background:radial-gradient(circle,rgba(244,42,65,.26) 0%,rgba(244,42,65,.13) 35%,rgba(255,90,110,.05) 60%,transparent 72%);
+  animation:fxBreath 3.2s ease-in-out infinite}
+#fx-cursor-core{width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;
+  background:rgba(255,120,135,.55);box-shadow:0 0 12px 3px rgba(244,42,65,.45)}
+#fx-cursor.on,#fx-cursor-core.on{opacity:1}
+#fx-cursor.hot{width:200px;height:200px;margin:-100px 0 0 -100px}
+#fx-cursor{transition:opacity .35s ease,width .3s ease,height .3s ease,margin .3s ease}
+@keyframes fxBreath{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.25) saturate(1.2)}}
+
+.fx-trail{position:fixed;pointer-events:none;z-index:99997;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,110,125,.8),rgba(244,42,65,0) 70%);animation:fxTrail .8s ease-out forwards}
+@keyframes fxTrail{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+
+.fx-ripple{position:fixed;pointer-events:none;z-index:99997;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  border:2px solid rgba(244,42,65,.6);animation:fxRipple .7s ease-out forwards}
+@keyframes fxRipple{to{transform:scale(7);opacity:0}}
+
+/* ---------- 2. Login / Register dramatic open ---------- */
+.auth-container{perspective:1200px}
+
+.fx-burst{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(255,255,255,.95),rgba(244,42,65,.55) 35%,rgba(0,185,127,.35) 60%,transparent 72%);
+  animation:fxBurst 1.1s cubic-bezier(.16,.84,.3,1) forwards}
+@keyframes fxBurst{0%{transform:scale(.2);opacity:1}100%{transform:scale(26);opacity:0}}
+
+.auth-card.fx-open{z-index:2;transform-origin:50% 60%;
+  animation:fxCardOpen 1s cubic-bezier(.2,.9,.25,1.05) both,fxCardGlow 2.6s ease-out .1s both}
+@keyframes fxCardOpen{
+  0%{opacity:0;transform:translateY(46px) rotateX(-28deg) scale(.82);filter:blur(10px) brightness(1.8)}
+  55%{opacity:1;filter:blur(0) brightness(1.25)}
+  100%{opacity:1;transform:none;filter:none}}
+@keyframes fxCardGlow{
+  0%{box-shadow:0 0 0 0 rgba(244,42,65,0),0 0 0 rgba(0,185,127,0)}
+  30%{box-shadow:0 0 38px 8px rgba(244,42,65,.55),0 0 90px 24px rgba(0,185,127,.38),var(--sh4)}
+  100%{box-shadow:0 0 22px 2px rgba(244,42,65,.18),0 0 60px 8px rgba(0,185,127,.14),var(--sh4)}}
+
+/* shimmer light sweep across the card */
+.auth-card.fx-open::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.65) 48%,rgba(255,220,225,.45) 52%,transparent 70%);
+  background-size:260% 100%;background-position:130% 0;mix-blend-mode:soft-light;
+  animation:fxShimmer 1.4s ease-out .45s 1 both,fxShimmer 5.5s ease-in-out 3s infinite}
+@keyframes fxShimmer{0%{background-position:130% 0;opacity:1}60%{opacity:1}100%{background-position:-60% 0;opacity:0}}
+
+/* sparkles */
+.fx-spark{position:absolute;pointer-events:none;z-index:4;width:var(--s);height:var(--s);
+  background:radial-gradient(circle,#fff 0 25%,rgba(255,200,208,.9) 45%,transparent 70%);
+  clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);
+  filter:drop-shadow(0 0 4px rgba(244,42,65,.9));opacity:0;
+  animation:fxSpark var(--d) ease-out var(--delay) forwards}
+@keyframes fxSpark{
+  0%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}
+  25%{opacity:1}
+  100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.1) rotate(180deg)}}
+.fx-twinkle{animation:fxTwinkle var(--d) ease-in-out var(--delay) infinite}
+@keyframes fxTwinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(90deg)}}
+
+/* inputs light up softly as they appear */
+.auth-card.fx-open .form-group{animation:fxField .6s ease-out both}
+.auth-card.fx-open .form-group:nth-of-type(1){animation-delay:.35s}
+.auth-card.fx-open .form-group:nth-of-type(2){animation-delay:.45s}
+.auth-card.fx-open .form-group:nth-of-type(3){animation-delay:.55s}
+.auth-card.fx-open .form-group:nth-of-type(n+4){animation-delay:.65s}
+@keyframes fxField{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media (hover:none),(pointer:coarse){#fx-cursor,#fx-cursor-core{display:none}}
+@media (prefers-reduced-motion:reduce){
+  #fx-cursor,#fx-cursor-core,.fx-trail,.fx-ripple,.fx-burst,.fx-spark{display:none!important}
+  .auth-card.fx-open,.auth-card.fx-open::after,.auth-card.fx-open .form-group{animation:none!important}
+}

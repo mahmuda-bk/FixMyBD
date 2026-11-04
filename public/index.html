@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixMyBD - Report. Track. Improve Bangladesh.</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/bd-theme.css">
+  <link rel="stylesheet" href="/css/bd-polish.css">
+  <link rel="stylesheet" href="/css/fx.css">
+  <link rel="stylesheet" href="/css/home-visuals.css">
+  <link rel="stylesheet" href="/css/category-art.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <div id="splash"><span class="flag" aria-hidden="true"></span><b>FixMy<i>BD</i></b><em>REPORT · TRACK · IMPROVE</em><div class="bar"></div></div>
+  <div id="wipe"></div>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo" onclick="navigate('home')">
+        <span class="flag flag-btn" aria-label="Bangladesh"></span>
+        <span style="display:flex;flex-direction:column;line-height:1.05">
+          <span class="logo-text">FixMy<span>BD</span></span>
+          <span style="font-size:0.55rem;color:rgba(255,255,255,0.55);letter-spacing:0.02em">Report · Track · Improve</span>
+        </span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#" onclick="navigate('home')">Home</a>
+        <a href="#" onclick="navigate('reports')">Reports</a>
+        <a href="#" id="navTrack" style="display:none" onclick="navigate('my-reports')">My Reports</a>
+        <a href="#" id="navProfile" style="display:none" onclick="navigate('profile')">Profile</a>
+        <a href="#" id="navAuthority" style="display:none" onclick="navigate('authority')">Authority</a>
+        <a href="#" id="navDash" onclick="navigate('dashboard')">▦ Dashboard</a>
+        <a href="#" id="navAdmin" style="display:none" onclick="navigate('admin')">Admin</a>
+      </div>
+      <div class="nav-right">
+        <div id="notifBell" class="notif-bell" style="display:none" onclick="navigate('notifications')">
+          🔔 <span id="notifCount" class="notif-badge">0</span>
+        </div>
+        <div id="userMenu" class="user-menu" style="display:none">
+          <span id="userName"></span>
+          <button onclick="logout()" class="btn btn-sm btn-outline">Logout</button>
+        </div>
+        <div id="guestMenu">
+          <button onclick="navigate('login')" class="btn btn-sm btn-primary">Login</button>
+          <button onclick="navigate('register')" class="btn btn-sm btn-outline">Register</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="app"></main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <span style="display:flex;align-items:center;gap:14px">
+          <span class="flag flag-btn" style="--flag-w:52px" aria-label="Bangladesh flag"></span>
+          <span class="logo-text">FixMy<span>BD</span></span>
+        </span>
+        <p>Report · Track · Improve — for the People's Republic of Bangladesh.</p>
+        <p style="margin-top:20px">A centralized platform for citizens to report public issues, track authority responses, and improve communities.</p>
+      </div>
+      <div class="footer-links">
+        <span class="footer-lbl">Navigate</span>
+        <a href="#" onclick="navigate('home')">Home</a>
+        <a href="#" onclick="navigate('reports')">Browse Reports</a>
+        <a href="#" onclick="navigate('create-report')">Report an Issue</a>
+        <a href="#" onclick="navigate('login')">Sign In</a>
+      </div>
+      <div>
+        <span class="footer-lbl">System</span>
+        <span class="status-pill"><span style="animation:blink 1.5s infinite">●</span> PUBLIC · OPEN TO ALL CITIZENS</span>
+        <p style="margin-top:20px;font-family:var(--font-mono);font-size:var(--fs-xxs)">REPORT → TRACK → IMPROVE</p>
+      </div>
+    </div>
+    <div class="footer-bar">🇧🇩 Improve Bangladesh — Our Mission</div>
+  </footer>
+
+  <div id="scrollbar-progress"></div>
+
+  <div id="modal" class="modal" style="display:none">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/motion.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/authority-tools.js"></script>
+  <script src="/js/fx.js"></script>
+  <script src="/js/home-visuals.js"></script>
+  <script src="/js/category-art.js"></script>
+</body>
+</html>
